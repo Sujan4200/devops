@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - 42100:3306
+    volumes:
+      - ./mounts/mysql-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/my.cnf
+    environment:
+      TZ: Asia/Kathmandu
+      MYSQL_DATABASE: <dbName>
+      MYSQL_USER: <userName>
+      MYSQL_PASSWORD: <userPwd>
+      MYSQL_ROOT_PASSWORD: <rootUserPwd>
+    deploy:
+      labels:
+        feature.description: 'MYSQL DB'
+      restart_policy:
+        condition: on-failure
+    networks:
+      - db-mysql
+ 
+
+networks:
+  db-mysql:

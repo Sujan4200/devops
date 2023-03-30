@@ -1,0 +1,61 @@
+########################################################################
+##
+##   Docker Cheatsheet
+##   Prepared By: Ankit Ojha
+##   URL: ankitojha.com.np
+##   Update on: Nov 19, 2022
+##
+########################################################################
+
+
+## Registry and Repositories Commands:
+--------------------------------------
+- Login to a registry       ->      docker login
+- Logout from a registry    ->      docker logout
+- Searching an image        ->      docker search <imageNamePattern>
+- Pulling an image          ->      docker pull <imageName>
+- Pushing an image          ->      docker push <repoName>/<imgName>
+
+## Container Commands:
+----------------------
+- Creating a container      ->      docker container create -it <imgName>
+- Running a container       ->      docker run -it --name <containerName> -p <hostPort>:<containerPort> -d <imgName>
+- Renaming a container      ->      docker rename <oldContainerName> <newContainerName>
+- Removing a container      ->      docker rm <containerName>
+- Force remove a container  ->      docker rm -f <containerName>
+- Stopping a container      ->      docker stop <containerName>
+- Starting a container      ->      docker start <containerName>
+- Pausing a container       ->      docker pause <containerName>
+- Unpausing a container     ->      docker unpause <containerName>
+- List running containers   ->      docker ps
+- List all containers       ->      docker ps -a
+- List all stopped ones     ->      docker ps -a -f status=exited
+- Get container logs        ->      docker logs <containerName>
+- Infinite container logs   ->      docker logs -f <containerName>
+- Inspecting containers     ->      docker inspect <containerName>
+- Running container process ->      docker top <containerName>
+- Container Resource Usage  ->      docker stats <containerName>
+
+## Image Commands:
+------------------
+- Listing images            ->      docker images
+- Listing dangling images   ->      docker images -f dangling=true
+- Building from Dockerfile  ->      docker build /path/to/build/file
+- Building and tagging      ->      docker build -t <imgName> /path/to/build/file
+- Loading image from a tar  ->      docker load < <file.tar.gz>
+- Saving an image to a tar  ->      docker save <imgName> > <file.tar.gz>
+- Showing history of image  ->      docker history <imgName>
+- Create img from container ->      docker commit <containerName> <imgName>
+- Tagging an image          ->      docker tag <oldImgName> <newImgName>
+
+## Cleaning Docker:
+--------------------
+- Removing stopped cont.    ->      docker rm <containerName>
+- Removing running cont.    ->      docker rm -f <containerName>
+- Removing all exited cont. ->      docker rm `docker ps -a -f status=exited -q`
+- Removing an image         ->      docker rmi <imgName>
+- Removing image forcefully ->      docker rmi -f <imgName>
+- Removing dangling images  ->      docker rmi -f `docker images -f dangling=true -q`
+- Removing all images       ->      docker rmi -f `docker images -a -q`
+- Removing all unused       ->      docker system prune -f
+- Removing everything       ->      docker system prune -a

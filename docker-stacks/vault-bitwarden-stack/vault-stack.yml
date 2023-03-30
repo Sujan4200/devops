@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:8.0
+    env_file:
+      - database.env
+    networks:
+      - vault
+    volumes:
+      - ./mounts/vault/db/:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+
+  vaultwarden:
+    image: vaultwarden/server:1.28.0
+    env_file:
+      - vault.env
+    depends_on:
+      - mysql
+    networks:
+      - vault
+    volumes:
+      - ./mounts/vault/app/:/data/
+      - /var/log/docker:/var/log/docker
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8200:80
+      - 8201:3012
+    deploy:
+      labels:
+        feature.description: 'VAULT WARDEN SERVER'
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  vault:

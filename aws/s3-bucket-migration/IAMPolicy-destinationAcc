@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUR-SOURCE-BUCKET-NAME-HERE",
+                "arn:aws:s3:::YOUR-SOURCE-BUCKET-NAME-HERE/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUR-DESTINATION-BUCKET-NAME-HERE",
+                "arn:aws:s3:::YOUR-DESTINATION-BUCKET-NAME-HERE/*"
+            ]
+        }
+    ]
+}

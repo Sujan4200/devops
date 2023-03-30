@@ -1,0 +1,69 @@
+########################################################################
+##
+##   MYSQL Cheatsheet
+##   Prepared By: Ankit Ojha
+##   URL: ankitojha.com.np
+##   Update on: Nov 19, 2022
+##
+########################################################################
+
+## Creating a dump:
+-------------------
+ - In .sql file         ->      mysqldump -u <userName> -p <dbName> > <dbName>.sql
+ - In .gz form          ->      mysqldump -u <userName> -p <dbName> | gzip > <dbName>.sql.gz
+
+
+## Extracting from a dump:
+--------------------------
+ - From .sql file       ->      mysql -u <userName> -p <dbName> < /path-to-sql-file
+ - From .sql.gz file    ->      gzip -d <fileName>.gz (Convert to .sql file, then use above command)
+
+
+## Create a User:
+-----------------
+CREATE USER 'userName'@'host' IDENTIFIED BY 'password';
+
+
+## Granting a user permission to a specific database:
+-----------------------------------------------------
+GRANT ALL PRIVILEGES ON <dbName>.* TO '<userName>'@'<host>';
+
+
+## Granting a user permission to all databases in the system:
+-------------------------------------------------------------
+GRANT ALL PRIVILEGES ON *.* TO '<userName>'@'<host';
+
+
+## Query all rows of a table in pretty format:
+----------------------------------------------
+SELECT * FROM <tableName> \G;
+
+
+############################
+## MYSQL ROOT PASSWORD RESET
+############################
+
+# Stop MySQL Service:
+---------------------
+sudo systemctl stop mysql
+
+# Start the database without loading the grant tables or enabling networking:
+-----------------------------------------------------------------------------
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+
+# Enter the database(another terminal):
+---------------------------------------
+mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+FLUSH PRIVILEGES;
+exit
+
+# Restart database service normally:
+------------------------------------
+sudo kill `cat /var/run/mysqld/mysqld.pid`
+sudo systemctl start mysql
+
+Try to login with new password:
+-------------------------------
+mysql -u root -p
+

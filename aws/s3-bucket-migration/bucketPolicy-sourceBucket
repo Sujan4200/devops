@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DelegateS3Access",
+            "Effect": "Allow",
+            "Principal": {"AWS": "Your destination AWS Account Number"},
+            "Action": ["s3:ListBucket","s3:GetObject"],
+            "Resource": [
+                "arn:aws:s3:::YOUR-SOURCE-BUCKET-NAME-HERE/*",
+                "arn:aws:s3:::YOUR-SOURCE-BUCKET-NAME-HERE"
+            ]
+        }
+    ]
+}

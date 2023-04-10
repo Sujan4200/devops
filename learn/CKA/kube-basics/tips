@@ -1,0 +1,12 @@
+# Create a POD-definition YAML file for redis and save it to redis.yml file:
+----------------------------------------------------------------------------
+kubectl run redis --image redis --dry-run=client -o yaml > redis.yml
+
+# Scale replicasets:
+--------------------
+1. Update 'replicas' in yaml file for replicasets and apply command:
+    kubectl replace -f replicaset.yml
+
+2. Update replicasets with kubectl ad-hoc commands, this will not update replica sets value in yml file:
+    kubectl scale --replicas=6 -f replicaset.yml (with replica.yml defn file)
+    kubectl scale --replicas=6 -f replicaset myapp-replicaset (with type and name of resource)

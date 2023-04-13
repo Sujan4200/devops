@@ -1,0 +1,73 @@
+########################################################################
+##
+##   Powershell Cheatsheet
+##   Prepared By: Ankit Ojha
+##   URL: https://ankitojha.com.np
+##   Update on: Apr 11, 2023
+##
+########################################################################
+
+BASIC COMMANDS:
+---------------
+Get-Help
+ - Get help for any other powershell command
+
+Get-Command
+ - List all available commands
+
+Get-Process
+ - List all running processes
+
+Get-Service
+ - List all running services
+
+New-Item
+ - Create a new file
+ - Commands:
+	- New-Item -Path <NewFilePath> -Itemtype File (to create a file)
+	- New-Item -Path <NewDirPath> -Itemtype Directory (to create a dir)
+
+Copy-Item
+ - Copy files or dir
+ - Commands:
+	- Copy-Item <sourcePath> <destnPath>
+
+Remove-Item
+ - Remove files, dir or registry keys
+ - Commands:
+	- Remove-Item -Path <ItemPath>
+	- Remove-Item -Path <ItemPath> -Recurse -Force
+		* -Recurse: remove items recursively
+		* -Force:   force removal (no prompt)
+
+Get-EventLog
+ - Query Windows event logs (app, security and syslogs)
+
+
+TROUBLESHOOTING COMMANDS:
+-------------------------
+Where-Object
+ - Filters objects based on patterns
+ - Commands:
+	- COMMAND | Where-Object -Property Name -like "*PATTERN*"
+	  COMMAND | Where-Object { $_.Name -like "*PATTERN*"}
+ - Parameters:
+	-like 	: wildcard match
+	-eq 	: exact match
+	-notlike: no match
+	-match  : exact match (with regular expression pattern)
+
+Select-String
+ - Search for and extract text patterns
+ - Commands:
+	- Get-Content -Path "<filePath>" | Select-String -Pattern "<pattern>"
+
+Get-NetTCPConnection
+ - Info about active TCP connections
+ - Command (THIS CMD IS SIMILAR TO: netstat -tulpn | grep LISTEN)
+	- Get-NetTCPConnection | Where-Object { $_.State -eq 'Listen' } | Format-Table -Property LocalAddress, LocalPort, OwningProcess
+
+New-Alias
+ - Creates an alias
+ - Command:
+	- New-Alias -Name '<AliasName>' -Value <commandName>

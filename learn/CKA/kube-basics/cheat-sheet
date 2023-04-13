@@ -10,3 +10,13 @@ kubectl run redis --image redis --dry-run=client -o yaml > redis.yml
 2. Update replicasets with kubectl ad-hoc commands, this will not update replica sets value in yml file:
     kubectl scale --replicas=6 -f replicaset.yml (with replica.yml defn file)
     kubectl scale --replicas=6 -f replicaset myapp-replicaset (with type and name of resource)
+
+3. Edit the replicaset (with kubectl):
+    kubectl edit replicaset <name_of_replicaSet>
+
+    NOTE:
+    -----
+     - THIS IS NOT THE ACTUAL FILE, TEMPORARY FILE CREATED BY KUBERNETES TO ALLOW ACCESS ITS OBJECTS
+     - USUALLY CONTAINS MORE INFORMATION ABOUT THE OBJECT, THAN WE HAD PROVIDED
+     - CHANGES MADE IN THIS FILE APPLIES AS SOON AS WE SAVE IT (BE CAREFUL)
+

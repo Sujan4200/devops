@@ -1,0 +1,84 @@
+SALT STACK
+----------
+
+master: -> Server to deploy on target hosts
+minions: -> are the target hosts to master
+
+---------------------------------------
+Installation:(Bootstraped Installation)
+---------------------------------------
+
+Salt Master:
+------------
+curl -L https://bootstrap.saltproject.io -o install_salt.sh
+sudo sh install_salt.sh -P -M -N
+
+NOTE: The -N flag indicates not to install salt-minion, since this system is the Salt master.
+
+Salt Minion(s):
+---------------
+curl -L https://bootstrap.saltproject.io -o install_salt.sh
+sudo sh install_salt.sh -P
+
+File Locations:
+---------------
+/etc/salt/master        ->      Config file for salt master
+/etc/salt/pki/master    ->      Keys for master
+/etc/salt/minion        ->      Config file for salt minion
+/etc/salt/pki/minion    ->      Keys for minion
+
+-------------------------
+Networking Configurations
+-------------------------
+/etc/salt/master -> interface: <your_IP_or_domain> -> sudo systemctl restart salt-master
+/etc/salt/minion -> master: <your_master_IP_or_domain> -> sudo systemctl restart salt-minion
+
+---------------------------------------------------
+Configure Salt minions to authenticate with master:
+---------------------------------------------------
+- Add master's 'master.pub' fingerprint to /etc/salt/minion file inside the key:
+    - master_finger: '' <- Make sure to include the fingerprint in single quote.
+
+    Command: salt-key --finger-all (lists fingerprint for all, note: master.pub)
+
+- Restart Salt minion -> sudo systemctl restart salt-minion
+
+- List the Minion's fingerprint hash and verify it with output from Step 1 (master)
+    - sudo salt-call key.finger --local
+
+--------------
+Accept Minions
+--------------
+- Once minion ID is verified, accept them from Salt Master:
+    Command: salt-key -a <minion_hostname_or_IP>
+
+- Verify the status of accepted minions.
+    Command: salt-run manage.up <- Returns the hostname or IP of all verified and runing minions
+
+---------------
+Test Connection
+---------------
+- Ping all minions:
+    Command: salt '*' test.ping
+
+- Ping specific minion:
+    Command: salt '<minion_hostname_or_IP>' test.ping
+
+
+---------------
+Basic Commands:
+---------------
+Get Salt Key Fingerprint                ->      salt-key --finger <keyName>
+Get all salt key fingerprints           ->      salt-key --finger-all
+List all salt-keys                      ->      salt-key --list-all / salt-key -L
+Accept Minion, after fingerprint add    ->      salt-key -a <minion_host_or_IP>
+Accept all minions                      ->      salt-key -A
+Verify status of accepted minions       ->      salt-run manage.up
+Test Master-Minion Connetion            ->      salt '<minion_hostname_or_IP>' test.ping
+Test all Master-Minion Connections      ->      salt '*' test.ping
+
+---------------
+Other Commands:
+---------------
+Package Install                         ->      salt <minion_hostname> pkg.install <pkg_name>
+Package Remove                          ->      salt <minion_hostname> pkg.remove <pkg_name>

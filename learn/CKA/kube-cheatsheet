@@ -1,0 +1,53 @@
+###################################################################################
+# Create a YAML-definition file for Kubernetes services and save it to .yml file: #
+###################################################################################
+--dry-run=client -o yaml
+-> This option generates the YAML files without actually creating the resource in the cluster.
+
+NOTE:
+  - Make sure to remove '<>' in below listed commands before running it:
+
+Examples:
+POD:
+kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
+
+DEPLOY:
+kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
+
+SERVICE:
+kubectl create service clusterip <svcName> --tcp=<Port:Port> --dry-run=client -o yaml > <svc>.yml
+
+INGRESS:
+kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml
+
+####################
+# CREATING OBJECTS #
+####################
+kubectl apply -f <fileName>		# Create Resource(s)
+kubectl apply -f <file1> -f <file2>	# Creates resources from multiple files
+kubectl apply -f <dirName>		# Creates resources in all manifests files in dir
+kubectl apply -f <URL>			# Creates resource(s) from URL
+
+#################################
+# VIEWING AND FINDING RESOURCES #
+#################################
+
+# Get commands with basic output:
+---------------------------------
+kubectl get services			# List all services in the namespace
+kubectl get pods --all-namespaces	# List all pods in all namespaces
+kubectl get pods -o wide		# List all pods in the current namespace, with more details
+kubectl get pods			# List all pods in the namespace
+kubectl get deployment <depName>	# List a particular deployment
+kubectl get pod <podName> -o yaml	# Get a pod's YAML
+
+# Describe commands with verbose output:
+----------------------------------------
+kubectl describe nodes <nodeName>
+kubectl describe pod <podName>
+
+# List pods sorted by Restart Count:
+------------------------------------
+kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
+
+

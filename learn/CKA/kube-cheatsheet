@@ -62,3 +62,11 @@ kubectl get pods --show-labels
 ------------------------------------------------------------------
 kubectl get pods --selector=app=frontend
 
+# List all events:
+------------------
+kubectl events
+kubectl events --types=Warning (only warning events)
+
+# Comapres the current state of the cluster against the state that the cluster would be in if the manifest was applied:
+-----------------------------------------------------------------------------------------------------
+kubectl diff -f <manifest>.yml

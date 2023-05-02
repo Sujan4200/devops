@@ -1,22 +1,22 @@
-# Create a YAML-definition file for Kubernetes services and save it to .yml file:
----------------------------------------------------------------------------------
+###################################################################################
+# Create a YAML-definition file for Kubernetes services and save it to .yml file: #
+###################################################################################
 --dry-run=client -o yaml
 -> This option generates the YAML files without actually creating the resource in the cluster.
 
 NOTE:
   - Make sure to remove '<>' in below listed commands before running it:
 
-#Examples:
-#POD:
+Examples:
+POD:
 kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
 
-#DEPLOY:
+DEPLOY:
 kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
 
-#SERVICE:
+SERVICE:
 kubectl create service clusterip <svcName> --tcp=<Port:Port> --dry-run=client -o yaml > <svc>.yml
 
-#INGRESS:
+INGRESS:
 kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml
-
 

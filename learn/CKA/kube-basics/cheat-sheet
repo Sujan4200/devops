@@ -1,22 +1,22 @@
-# Create a POD-definition YAML file for redis and save it to redis.yml file:
-----------------------------------------------------------------------------
-kubectl run redis --image redis --dry-run=client -o yaml > redis.yml
+# Create a YAML-definition file for Kubernetes services and save it to .yml file:
+---------------------------------------------------------------------------------
+--dry-run=client -o yaml
+-> This option generates the YAML files without actually creating the resource in the cluster.
 
-# Scale replicasets:
---------------------
-1. Update 'replicas' in yaml file for replicasets and apply command:
-    kubectl replace -f replicaset.yml
+NOTE:
+  - Make sure to remove '<>' in below listed commands before running it:
 
-2. Update replicasets with kubectl ad-hoc commands, this will not update replica sets value in yml file:
-    kubectl scale --replicas=6 -f replicaset.yml (with replica.yml defn file)
-    kubectl scale --replicas=6 -f replicaset myapp-replicaset (with type and name of resource)
+#Examples:
+#POD:
+kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
 
-3. Edit the replicaset (with kubectl):
-    kubectl edit replicaset <name_of_replicaSet>
+#DEPLOY:
+kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
 
-    NOTE:
-    -----
-     - THIS IS NOT THE ACTUAL FILE, TEMPORARY FILE CREATED BY KUBERNETES TO ALLOW ACCESS ITS OBJECTS
-     - USUALLY CONTAINS MORE INFORMATION ABOUT THE OBJECT, THAN WE HAD PROVIDED
-     - CHANGES MADE IN THIS FILE APPLIES AS SOON AS WE SAVE IT (BE CAREFUL)
+#SERVICE:
+kubectl create service clusterip <svcName> --tcp=<Port:Port> --dry-run=client -o yaml > <svc>.yml
+
+#INGRESS:
+kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml
+
 

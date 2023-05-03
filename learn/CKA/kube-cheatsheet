@@ -82,5 +82,5 @@ Examples:
 ---------
 POD:		kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
 DEPLOY:		kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
-SERVICE:	kubectl create service clusterip <svcName> --tcp=<Port:Port> --dry-run=client -o yaml > <svc>.yml
+SERVICE:	kubectl create service clusterip <svcName> --tcp=<port:targetPort> --dry-run=client -o yaml > <svc>.yml
 INGRESS:	kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml

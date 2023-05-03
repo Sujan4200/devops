@@ -1,0 +1,12 @@
+# Deploy a pod named 'nginx-pod' using the 'nginx:alpine' image.
+----------------------------------------------------------------
+kubectl run nginx-pod --image=nginx:alpine
+
+# Deploy a 'redis' pod using the 'redis:alpine' image with labels set to 'tier=db'.
+-----------------------------------------------------------------------------------
+kubectl run redis --image=redis:alpine --labels="tier=db"
+
+# Create service 'redis-service' to expose the 'redis' application within the cluster on port '6379'.
+-----------------------------------------------------------------------------------------------------
+kubectl create service clusterip redis-service --tcp=6379:6379 (Need to match selector labels manually)
+kubectl expose pod redis --port=6379 --name redis-service (Selector labels are matched automatically)

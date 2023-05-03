@@ -1,24 +1,6 @@
-###################################################################################
-# Create a YAML-definition file for Kubernetes services and save it to .yml file: #
-###################################################################################
---dry-run=client -o yaml
--> This option generates the YAML files without actually creating the resource in the cluster.
-
 NOTE:
+-----
   - Make sure to remove '<>' in below listed commands before running it:
-
-Examples:
-POD:
-kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
-
-DEPLOY:
-kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
-
-SERVICE:
-kubectl create service clusterip <svcName> --tcp=<Port:Port> --dry-run=client -o yaml > <svc>.yml
-
-INGRESS:
-kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml
 
 ####################
 # CREATING OBJECTS #
@@ -68,5 +50,31 @@ kubectl events
 kubectl events --types=Warning (only warning events)
 
 # Comapres the current state of the cluster against the state that the cluster would be in if the manifest was applied:
------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 kubectl diff -f <manifest>.yml
+
+#################################
+# INTERACTING WITH RUNNING PODS #
+#################################
+kubectl logs <podName>				# Dump pod logs
+kubectl logs -l name=<labelName>		# Dump pod logs with label name=<labelName>
+kubectl logs <podName> --previous		# Dump pod logs for previous instantiation of a container
+kubectl logs <podName> -c <contName>		# Dump pod container logs (multi-container case)
+kubectl logs -f <podName>			# Stream pod logs
+kubectl port-forward <podName> <HPort:CPort>	# Port forward requests to pod
+kubectl exec <podName> -- <command>		# Run command in existing pod
+kubectl exec -it <podName> -- bash		# Interactive shell access to pod
+kubectl top pod <podName>			# Show metrics for a given pod
+
+###################################################################################
+# Create a YAML-definition file for Kubernetes services and save it to .yml file: #
+###################################################################################
+--dry-run=client -o yaml
+-> This option generates the YAML files without actually creating the resource in the cluster.
+
+Examples:
+---------
+POD:		kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
+DEPLOY:		kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
+SERVICE:	kubectl create service clusterip <svcName> --tcp=<Port:Port> --dry-run=client -o yaml > <svc>.yml
+INGRESS:	kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml

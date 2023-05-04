@@ -1,0 +1,31 @@
+To use nodeSelector, first we need to label the node with appropriate selector:
+
+# To label nodes:
+-----------------
+kubectl label nodes <nodeName> <labelKey>=<labelValue>
+
+# To configure nodeSelector for pod, add the following under spec section in manifest file::
+--------------------------------------------------------------------------------------------
+nodeSelector:
+  <labelKey>:<labelValue>
+
+
+# LIMITATIONS WITH NODE SELECTOR:
+---------------------------------
+Cannot provide advanced expressions with NODE SELECTOR, 
+for eg. LARGE OR MEDIUM? / NOT SMALL
+
+THUS NODE AFFINITY COMES INTO PLAY.
+     -------------
+
+# Node Affinity:
+----------------
+Node Affinity is bit more complex than Node Selector, even though both works the same.
+
+# Node Affinity types:
+----------------------
+- requiredDuringSchedulingIgnoredDuringExecution
+- preferredDuringSchedulingIgnoredDuringExecution
+- requiredDuringSchedulingRequiredDuringExecution
+
+

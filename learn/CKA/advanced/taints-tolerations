@@ -1,0 +1,17 @@
+# Creating a taint on any existing node with effect of NoSchedule:
+------------------------------------------------------------------
+kubectl taint node <nodeName> <key=value>:NoSchedule
+
+# Adding a toleration to pod for the respective taint:
+------------------------------------------------------
+Add the following lines in your pod manifest file under spec section:
+  
+tolerations:
+- key: "<>"
+  value: "<>"
+  effect: "NoSchedule"
+  operator: "Equal"
+
+# Untaint a node:
+-----------------
+kubectl taint nodes <nodeName> <key=value>:NoSchedule-

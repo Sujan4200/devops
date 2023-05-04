@@ -1,0 +1,35 @@
+# Create a taint on node 'node01' with key of 'spray', value of 'mortein' and effect of NoSchedule:
+---------------------------------------------------------------------------------------------------
+kubectl taint node node01 spray=mortein:NoSchedule
+
+########################################################################################################
+# Create another pod named 'bee' with 'nginx' image, which hsa a toleration set to the taint 'mortein' #
+########################################################################################################
+
+############
+# SOLUTION #
+############
+
+Create a manifest file for the pod:
+-----------------------------------
+kubectl run bee --image=nginx --dry-run=client -o yaml > pod.yml
+
+Add toleration to this generated yaml file and run it:
+------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bee
+spec:
+  containers:
+  - image: nginx
+    name: bee
+  tolerations:
+  - key: spray
+    value: mortein
+    effect: NoSchedule
+    operator: Equal
+
+Create the resource, with this file:
+------------------------------------
+kubectl create -f pod.yml

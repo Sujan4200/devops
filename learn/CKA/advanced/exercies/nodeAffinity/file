@@ -1,0 +1,45 @@
+# Create a deployment named 'red' with the 'nginx' image and '2' replicas
+# and ensure it gets placed on the 'controlplane' node only.
+# SET THE LABEL KEY: node-role.kubernetes.io/control-plane to 'controlplane' node.
+# Use the same label key to place the pods of above depl in this node.
+# ---------------------------------------------------------------------------------
+
+###########
+# SOLUTION:
+###########
+
+# LABEL THE NODE 'controlplane' with appropriate key:
+-----------------------------------------------------
+kubectl label node controlplane node-role.kubernetes.io/control-plane=
+
+# CREATE A DEPLOY WITH THE FOLLOWING COMMAND:
+---------------------------------------------
+kubectl create deploy red --image=nginx --replicas=2 --dry-run=client -o yaml > deploy.yml
+
+# EDIT THE DEPLOYMENT FILE AND ADD AFFINITY RULES UNDER SPEC SECTION AS:
+------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists

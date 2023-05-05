@@ -1,0 +1,21 @@
+###########################################
+# Deploy a DaemonSet for FluentD Logging. #
+###########################################
+Name: elasticsearch
+Namespace: kube-system
+Image: k8s.gcr.io/fluentd-elasticsearch:1.20
+
+
+############
+# SOLUTION #
+############
+
+- First, generate a deployment manifest file for it:
+	kubectl create deployment elasticsearch -n kube-system --image=k8s.gcr.io/fluentd-elasticsearch:1.20 --dry-run=client -o yaml > fluentd.yml
+
+- Now, Make changes to the generated file by:
+	* Set kind to DaemonSet
+	* Remove: replicas, strategy and status
+
+- Save and apply the file:
+	kubectl create -f fluentd.yml

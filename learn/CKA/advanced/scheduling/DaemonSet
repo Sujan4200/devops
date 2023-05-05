@@ -1,0 +1,50 @@
+DaemonSets-> similar to ReplicaSets, as it helps to deploy multiple instances of a pod
+----------
+	- But, it runs one copy of your pod on each node in your cluster.
+	- If new node added, replica is added to that node and vice-versa.
+	- Ensures one copy of a pod is always present in all nodes in the cluster.
+
+USE CASE:
+---------
+	- To deploy monitoring agent/ logs aggregator in all nodes
+	- kube-proxy
+	- Networking (weave-net)
+
+INFO:
+-----
+	- Creation is similar to creation of ReplicaSets
+
+Sample YAML File:
+-----------------
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monit-daemon
+spec:
+  selector:
+    matchLabels:
+      app: monit-agent
+  template:
+    metadata:
+      labels:
+        app: monit-agent
+    spec:
+      containers:
+      - name: monit-agent
+        image: monit-agent
+
+Command:
+--------
+kubectl get daemonsets / kubectl get ds
+kubectl describe ds <daemonSetName>
+
+NOTE:
+-----
+- Instead of writing the manifest file, we can generate one with --dry-run option.
+- But, DaemonSet manifest files cannot be created directly with such commands.
+- Thus, we need to generate manifest file for deployment and later make few changes to the file.
+	
+	Changes to be made in file:
+	---------------------------
+		- Change: kind: DaemonSet
+		- Remove replicas, strategy and status

@@ -1,0 +1,86 @@
+NOTE:
+-----
+  - Make sure to remove '<>' in below listed commands before running it:
+
+####################
+# CREATING OBJECTS #
+####################
+kubectl apply -f <fileName>		# Create Resource(s)
+kubectl apply -f <file1> -f <file2>	# Creates resources from multiple files
+kubectl apply -f <dirName>		# Creates resources in all manifests files in dir
+kubectl apply -f <URL>			# Creates resource(s) from URL
+
+#################################
+# VIEWING AND FINDING RESOURCES #
+#################################
+
+# Get commands with basic output:
+---------------------------------
+kubectl get services			# List all services in the namespace
+kubectl get pods --all-namespaces	# List all pods in all namespaces
+kubectl get pods -o wide		# List all pods in the current namespace, with more details
+kubectl get pods			# List all pods in the namespace
+kubectl get pods -A			# List all pods in all namespaces
+kubectl get pods -n <namespaceName>	# List all pods in particular namespace
+kubectl get deployment <depName>	# List a particular deployment
+kubectl get pod <podName> -o yaml	# Get a pod's YAML
+
+# Switching namespaces permanently:
+-----------------------------------
+kubectl config set-context $(kubectl config current-context) --namespace=<namespaceName>
+
+# Describe commands with verbose output:
+----------------------------------------
+kubectl describe nodes <nodeName>
+kubectl describe pod <podName>
+
+# List pods sorted by Restart Count:
+------------------------------------
+kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
+
+# List PV sorted by capacity:
+-----------------------------
+kubectl get pv --sort-by=.spec.capacity.storage
+
+# Show labels for all pods (or any other K8s object that supports labeling):
+----------------------------------------------------------------------------
+kubectl get pods --show-labels
+
+# Get the version label of all pods with label <e.g app=frontend>:
+------------------------------------------------------------------
+kubectl get pods --selector=app=frontend
+
+# List all events:
+------------------
+kubectl events
+kubectl events --types=Warning (only warning events)
+
+# Comapres the current state of the cluster against the state that the cluster would be in if the manifest was applied:
+-----------------------------------------------------------------------------------------------------------------------
+kubectl diff -f <manifest>.yml
+
+#################################
+# INTERACTING WITH RUNNING PODS #
+#################################
+kubectl logs <podName>				# Dump pod logs
+kubectl logs -l name=<labelName>		# Dump pod logs with label name=<labelName>
+kubectl logs <podName> --previous		# Dump pod logs for previous instantiation of a container
+kubectl logs <podName> -c <contName>		# Dump pod container logs (multi-container case)
+kubectl logs -f <podName>			# Stream pod logs
+kubectl port-forward <podName> <HPort:CPort>	# Port forward requests to pod
+kubectl exec <podName> -- <command>		# Run command in existing pod
+kubectl exec -it <podName> -- bash		# Interactive shell access to pod
+kubectl top pod <podName>			# Show metrics for a given pod
+
+###################################################################################
+# Create a YAML-definition file for Kubernetes services and save it to .yml file: #
+###################################################################################
+--dry-run=client -o yaml
+-> This option generates the YAML files without actually creating the resource in the cluster.
+
+Examples:
+---------
+POD:		kubectl run <containerName> --image <imgName> --dry-run=client -o yaml > <pod>.yml
+DEPLOY:		kubectl create deployment <deplName> --image=<imgName> --dry-run=client -o yaml > <depl>.yml
+SERVICE:	kubectl create service clusterip <svcName> --tcp=<port:targetPort> --dry-run=client -o yaml > <svc>.yml
+INGRESS:	kubectl create ingress <ingName> --rule=<mydomain.com>/path=<svcName:svcPort> --dry-run=client -o yaml > <ingress>.yml

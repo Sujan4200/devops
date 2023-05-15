@@ -1,0 +1,21 @@
+# Command and Args in k8s:
+##########################
+- Similar to ENTRYPOINT AND CMD in Docker.
+
+Analogy:
+########
+- command -> ENTRYPOINT
+  args	  -> CMD
+
+example (POD Defn file):
+########################
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+    - name: ubuntu-sleeper
+      image: ubuntu-sleeper
+      command: ["sleep"]
+      args: ["10"]

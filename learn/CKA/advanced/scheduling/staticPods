@@ -1,0 +1,26 @@
+################################
+# Check if pod is static or not:
+################################
+
+# Quick Way:
+############
+- List all pods with : kubectl get pods -A
+- Static pods are the ones whose pod names are appended with some static nodename.
+
+# Detailed View:
+################
+- Look at the YAML defn file of any static pod:
+  Run: kubectl get pod <staticPodName> -n <nameSpace> -o yaml
+
+- Under the 'ownerReferences' section, we can find 'kind: Node' in case of static pods:
+   
+  ownerReferences:
+  - apiVersion: v1
+    controller: true
+    kind: Node
+
+#####################################################
+# Directory path holding static pod definition files:
+#####################################################
+- Look at kubelet config at /var/lib/kubelet/config.yml:
+  staticPodPath: /etc/kubernetes/manifests

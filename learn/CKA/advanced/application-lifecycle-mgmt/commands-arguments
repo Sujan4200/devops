@@ -19,3 +19,12 @@ spec:
       image: ubuntu-sleeper
       command: ["sleep"]
       args: ["10"]
+
+OR,   command: ["sleep 10"]
+    
+OR    command:
+      - "sleep"
+      - "10"
+
+(ANY FORM IS CORRECT)
+    

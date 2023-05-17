@@ -1,0 +1,33 @@
+# Create a new ConfigMap, using the specs below:
+################################################
+ConfigMap Name: webapp-config-map
+Data: APP_COLOR=darkblue
+Data: APP_OTHER=disregard
+
+# SOLUTION:
+###########
+kubectl create configmap webapp-config-map --dry-run=client -o yaml --from-literal=APP_COLOR=blue --from-literal=APP_OTHER=disregard > configmap.yml
+kubectl apply -f configmap.yml
+
+
+# Update env variable on POD to only use 'APP_COLOR' key from newly created configMap:
+######################################################################################
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: webapp-color
+  name: webapp-color
+  namespace: default
+spec:
+  containers:
+  - env:
+    - name: APP_COLOR
+      valueFrom:
+       configMapKeyRef:
+         name: webapp-config-map
+         key: APP_COLOR
+    image: kodekloud/webapp-color
+    name: webapp-color
+
+ 

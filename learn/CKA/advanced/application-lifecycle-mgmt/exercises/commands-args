@@ -1,0 +1,19 @@
+# View the command used to run the pod:
+#######################################
+- Describe the pod: kubectl describe pod <podName>
+- Look for 'Command' option in the output:
+  eg.  
+    Command:
+      sleep
+      4800
+
+# Create a pod with following configurations:
+#############################################
+- PodName: ubuntu-sleeper
+- Image: Ubuntu
+- Sleep 5000
+
+- Solution:
+###########
+kubectl run ubuntu-sleeper --image=ubuntu --dry-run=client -o yaml --command -- sleep 5000 > ubuntu-sleeper.yml
+kubectl apply -f ubuntu-sleeper.yml

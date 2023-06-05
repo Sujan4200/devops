@@ -1,0 +1,33 @@
+############
+# ConfigMap:
+############
+- To pass in the environment variables to our application.
+
+# Creating ConfigMaps:
+----------------------
+
+- Imperative Way:
+
+kubectl create configmap <configName> --from-literal=<key>=<value>	# Multiple --from-literal can be added for different key-value pairs of env. 
+kubectl create configmap <configName> --from-file=<pathToFile>		# for too many config items, use file option
+
+
+- Declerative Way:
+------------------
+Create configmap.yml file:
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_COLOR: blue
+  APP_MODE: prod
+
+
+# ConfigMap in Pods:
+--------------------
+To inject the specific configMap to a pod, configure the pod definition yaml file as (ADD THIS UNDER CONTAINERS, as a siblings of PORT):
+ envFrom:
+   - configMapRef:
+         name: app-config

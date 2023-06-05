@@ -24,6 +24,7 @@ kubectl get pods -A			# List all pods in all namespaces
 kubectl get pods -n <namespaceName>	# List all pods in particular namespace
 kubectl get deployment <depName>	# List a particular deployment
 kubectl get pod <podName> -o yaml	# Get a pod's YAML
+kubectl replace --force -f <.ymlFile>	# Deletes existing pod and creates new pod (MOSTLY USED IN CASE OF DEPLOYMENT FILE EDIT, WHERE CHANGES CANNOT BE MADE DIRECTLY TO THE FILE)
 
 # Switching namespaces permanently:
 -----------------------------------

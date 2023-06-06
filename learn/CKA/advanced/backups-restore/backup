@@ -1,0 +1,7 @@
+# Resource Configurations Backup:
+#################################
+
+Backup all resource config files inside the kubernetes cluster (all namespaces, every resources ever created(including imperative and declarative approach)
+
+kubectl get all --all-namespaces -o yaml > all-deploy-services.yml
+

@@ -1,0 +1,115 @@
+# DATABASE COMMANDS
+####################
+show dbs                                ->      view all databases
+use <dbName>                            ->      create a new or switch databases
+db                                      ->      view current database
+db.dropDatabase()                       ->      delete database
+
+
+#COLLECTION COMMANDS
+#####################
+show collections                        ->      show all collections
+db.createCollection('colName')          ->      create a collection
+db.colName.drop()                       ->      drop a collection
+
+
+# DOCUMENT(ROW) COMMANDS
+#########################
+db.colName.find()                       ->      shows all rows in a collection
+db.colname.find.pretty()                ->      shows all rows in a collection (Pretty format)
+db.colName.findOne({field: 'value'})    ->      find the first row matching the object
+
+
+
+# Search in a mongo DB
+#######################
+db.colName.find({field:'value'})
+
+# Limit the number of rows in output
+# Limits 2 rows
+db.colName.find.().limit(2)
+
+# Count the number of rows in the output
+db.colName.find().count()
+
+
+# MONGOEXPORT: 
+# to export a single collection
+################################
+
+# In JSON format, export:
+mongoexport --db dbName --collection colName --out filename.json --jsonArray --pretty
+
+
+# MONGODUMP:
+# to dump a mongo database
+###########################
+mongodump --host localhost --port 27017 --db dbName --username "userName" --password "Pwd" --gzip --archive=/home/ubuntu/file.gz
+
+# to dump in JSON:
+mongodump -d <database_name> -o <directory_backup> # dumps all collections at once
+mongorestore -d <database_name> <directory_backup> # restores all collections at once
+
+
+# MONGORESTORE:
+# restore mongo database from dump file
+----------------------------------------
+
+# from .gz file:
+mongorestore --host=localhost --port=27017 --gzip --archive=dump.tar.gz
+
+
+
+
+# CREATE A USER
+---------------
+use dbName;
+db.createUser(
+  {
+    user: "userName",
+    pwd:  "passWord",
+    roles: [ 
+        { role: "readWrite", db: "dbName" } ]
+  }
+)
+
+
+
+
+# INSERT AND UPDATE ROWS IN MONGO:
+----------------------------------
+
+#Insert One Row:(Example)
+db.colName.insert({
+    'key': 'value',
+    'key': 'value',
+    'key': value
+ })
+
+#Insert Many Rows:(Example)
+db.colName.insertMany([{
+    'key': 'value',
+    'key': 'value',
+    'key': value
+    }, 
+    {'key': 'value',
+    'key': 'value',
+    'key': value
+    },
+    {'key': 'value',
+    'key': 'value',
+    'key': value
+}])
+
+
+
+#MONGO ISSUE SOLVE
+sudo service mongodb stop 
+
+sudo rm /var/lib/mongodb/mongod.lock 
+
+sudo mongod --repair --dbpath /var/lib/mongodb 
+
+sudo mongod --fork --logpath /var/lib/mongodb/mongodb.log --dbpath /var/lib/mongodb 
+
+sudo service mongodb start

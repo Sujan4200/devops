@@ -1,0 +1,42 @@
+To set up your Docker Swarm services (abc and xyz) to be accessible through subdomains (test.nik.com and demo.nik.com) via NGINX, 
+I'll provide you with two separate NGINX configuration files. These configurations will handle the redirection of each subdomain
+to the appropriate service running in your Docker Swarm.
+
+server {
+    listen 80;
+    server_name test.nik.com;
+
+    location / {
+        proxy_pass http://abc:3000; # Assuming the service is running on port 3000 within the Swarm
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+##################################################################################################################
+
+server {
+    listen 80;
+    server_name demo.nik.com;
+
+    location / {
+        proxy_pass http://xyz:3434; # Assuming the service is running on port 80 within the Swarm
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+
+##########################################################################################################################
+
+conf file should be in  /etc/nginx/sites-available/
+
+ln -s /etc/nginx/sites-enabled/                                   ## creating a symlink 
+
+sudo nginx -t 
+
+sudo systemctl reload nginx

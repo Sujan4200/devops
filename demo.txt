@@ -40,3 +40,66 @@ ln -s /etc/nginx/sites-enabled/                                   ## creating a 
 sudo nginx -t 
 
 sudo systemctl reload nginx
+
+
+Employee Exit Process Guidelines
+
+• Resignation Application:
+
+• All employees must submit their resignation through the HR tool provided by the company https://nepalpayroll.infinite.com/Employee/Default.aspx. The HR tool will be the official channel for processing resignations.
+
+• Last Day Consideration: Please avoid scheduling your last working day on a Monday.
+
+• Resignations submitted through the HR tool should include the employee's last working day and a brief reason for leaving (optional).
+
+• Notice Period and Salary Compensation:
+
+• The standard notice period for all employees is one month. Employees should inform their immediate supervisors and HR of their resignation at least one month in advance of their intended last working day and such date should be recorded on the resignation tool.
+
+• An Employee can resign from service at any time by giving a prior notice to the Company as follows or by paying or surrendering the Salary for the notice period in lieu thereof.
+
+• In case of an employment for up to 4 weeks, at least one day;
+
+• In case of an employment period of 4 weeks to one year, at least 7 days; and
+
+• In the case of an employment period of more than a year, at least 30 days.
+
+• In exceptional cases where an employee is unable to serve the full notice period, the employee must request a shorter notice period from their supervisor and HR. Such requests will be considered based on the reasons provided by the employee and the company's operational requirements. Please note that it is important for the team a proper transition time for smooth knowledge transfer and handover.
+
+• If the company accepts a shorter notice period, the employee's salary will be proportionally deducted for the remaining days to compensate for the shortfall.
+
+• Last Day Formalities:
+
+• On the last working day, the following formalities should be completed:
+
+• IT Department: Handover of laptops, accessories, and other company-owned IT equipment. IT department receives these items after 4 pm of the exit day.
+
+• Admin and Facility Department: Return of ID cards, access cards, and any other access-related items.
+
+• HR Department: to receive necessary exit letters after completing the above formalities.
+
+• Finance Department: Clearance of pending financial dues (if any) and providing necessary documentation for final settlement.
+
+• Financial Settlement:
+
+• The company will conduct financial calculations twice a month, and employees who resign will receive their dues and settlement amounts during these periods. This includes salary and social security contribution too.
+
+• Employees are requested to be patient during this period and wait for the scheduled financial settlements. No ad-hoc financial settlements will be processed outside of the designated payment periods.
+
+• Resignation Cancellation:
+
+• Resignation requests will not be cancelled on the same day as the exit day to ensure a smooth exit process and to maintain the company's operational efficiency.
+
+• If an employee wishes to withdraw their resignation after submitting it, they must get approval from their respective Managers/Directors and HR. Once the resignation has been processed and notice period has begun, the company reserves the right to decide on the acceptance of the withdrawal request.
+
+• Exit Interviews: All employees leaving the company are encouraged to participate in an exit survey and interview. The purpose of the survey and exit interview is to gain insights into the employee's experience, gather feedback on the company's policies and practices, and identify areas for improvement.
+
+• Return of Company Property: Employees are responsible for returning all company property and assets before their last working day. Failure to do so may result in the cost of the items being deducted from the final settlement.
+
+• Confidentiality and Non-Disclosure: Employees are reminded of their ongoing obligation to maintain the confidentiality of the company's proprietary information and not to disclose any sensitive information to third parties after their employment ends.
+
+Additional steps on Cotiviti client side-
+
+• Offboarding form: HR person is responsible with competing the offboarding form and sharing it to the appropriate manager and the 3PI Team.
+
+These guidelines are subject to change or amendment at the company's discretion. Employees are expected to adhere to the
